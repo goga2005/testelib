@@ -1,5 +1,5 @@
 {
-    "name": "linx/oms-notifications-client",
+    "name": "goga2005/oms-notifications-client",
     "description": "Client for oms notification",
     "type": "library",
     "license": "MIT",
@@ -14,5 +14,7 @@
         "psr-4": {
             "Linx\\oms-notifications-client\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
