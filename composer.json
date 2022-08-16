@@ -1,0 +1,18 @@
+{
+    "name": "linx/oms-notifications-client",
+    "description": "Client for oms notification",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "~6.0",
+        "illuminate/support": "~5.4|~6.0|~8.0",
+        "illuminate/validation": "~5.4|~6.0|~8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Linx\\oms-notifications-client\\": "src/"
+        }
+    }
+}
