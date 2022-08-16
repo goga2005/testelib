@@ -3,7 +3,7 @@
     "description": "Client for oms notification",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "require": {
         "php": ">=7.0",
         "guzzlehttp/guzzle": "~6.0",
@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Goga2005\\oms-notifications-client\\": "src/"
+            "Goga2005\\OmsNotificationClient\\": "src/"
         }
     },
     "minimum-stability": "dev",
