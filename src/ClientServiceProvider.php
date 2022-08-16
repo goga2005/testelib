@@ -1,10 +1,10 @@
 <?php
 
-namespace Linx\OmsNotificationClient;
+namespace Goga2005\OmsNotificationClient;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application;
-use Linx\OmsNotificationClient\Notification\Webhook;
+use Goga2005\OmsNotificationClient\Notification\Webhook;
 
 class ClientServiceProvider extends ServiceProvider
 {

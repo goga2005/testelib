@@ -1,9 +1,9 @@
 <?php
 
-namespace Linx\OmsNotificationClient\Facades;
+namespace Goga2005\OmsNotificationClient\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Linx\OmsNotificationClient\Notification\Webhook;
+use Goga2005\OmsNotificationClient\Notification\Webhook;
 
 class WebhookFacade extends Facade
 {

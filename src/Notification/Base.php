@@ -1,6 +1,6 @@
 <?php
 
-namespace Linx\OmsNotificationClient\Notification;
+namespace Goga2005\OmsNotificationClient\Notification;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Linx\OmsNotificationClient\Notification;
+namespace Goga2005\OmsNotificationClient\Notification;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
