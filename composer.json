@@ -3,7 +3,7 @@
     "description": "Client for oms notification",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "require": {
         "php": ">=7.0",
         "guzzlehttp/guzzle": "~6.0",

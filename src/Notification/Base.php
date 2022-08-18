@@ -2,13 +2,15 @@
 
 namespace Goga2005\OmsNotificationClient\Notification;
 
+use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ConnectException;
-use Illuminate\Support\Facades\Log;
 
 class Base
 {
-    protected function send($url, $token, $body)
+    /**
+     * @throws Exception
+     */
+    protected function send($url, $token, $body): array
     {
         $clientHttp = new Client();
 
@@ -18,25 +20,17 @@ class Base
             'Authorization' => "Bearer $token",
         ];
 
-        try {
-            $response = $clientHttp->request(
-                'POST',
-                $url,
-                [
-                    'head' => $head,
-                    'json' => $body,
-                ]
-            );
+        $response = $clientHttp->request(
+            'POST',
+            $url,
+            [
+                'timeout' => 20,
+                'headers' => $head,
+                'json' => $body,
+            ]
+        );
 
-            $result = json_decode($response->getBody(), true);
-        } catch (ConnectException $e) {
-            Log::error("Could not post data.", [
-                'error_message' => $e->getMessage(),
-                'path' => $url,
-            ]);
-
-            throw $e;
-        }
+        $result = json_decode($response->getBody(), true);
 
         return $result;
     }

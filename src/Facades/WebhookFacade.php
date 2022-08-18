@@ -3,7 +3,7 @@
 namespace Goga2005\OmsNotificationClient\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Goga2005\OmsNotificationClient\Notification\Webhook;
+use Goga2005\OmsNotificationClient\Notification\WebhookService;
 
 class WebhookFacade extends Facade
 {
@@ -14,6 +14,6 @@ class WebhookFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return Webhook::class;
+        return WebhookService::class;
     }
 }

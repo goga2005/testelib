@@ -2,12 +2,13 @@
 
 namespace Goga2005\OmsNotificationClient\Notification;
 
+use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class Webhook extends Base
+class WebhookService extends Base
 {
-    public const ENDPOINT_CREATE = '/api/v1/clients/{clientId}/webhook';
+    private const ENDPOINT_CREATE = '/api/v1/clients/{clientId}/webhook';
 
     private const ACCEPTED_METHODS = [
         'POST',
@@ -29,9 +30,11 @@ class Webhook extends Base
         'development',
     ];
 
-    public function create(string $clientId, string $token, array $input, string $env)
+    /**
+     * @throws Exception
+     */
+    public function create(string $clientId, string $token, array $input, string $env): array
     {
-dd('sdsdsds');
         $this->validateInput($clientId, $input);
 
         $this->validateEnv($env);
@@ -39,7 +42,7 @@ dd('sdsdsds');
         return $this->send($this->getUrl($env, $clientId), $token, $input);
     }
 
-    private function validateInput(string $clientId, array $input)
+    private function validateInput(string $clientId, array $input):void
     {
         /** @var ValidationValidator $validator */
         $validator = Validator::make($input, [
@@ -70,7 +73,6 @@ dd('sdsdsds');
             ],
             'retry' => [
                 'integer',
-                'between:1,' . config('app.webhook.max_retry'),
             ],
             'auth.type' => [
                 'string',
@@ -82,13 +84,13 @@ dd('sdsdsds');
                 Rule::requiredIf(array_key_exists('auth', $input)),
             ],
         ], [
-            'clientId.in' => 'The defined clientId must be equal to ' . self::ACCEPTED_METHODS . ', otherwise change the parameter clientId.',
+            'clientId.in' => 'The defined clientId must be equal to ' . $clientId . ', otherwise change the parameter clientId.',
             'method.in' => 'The selected method is invalid. Options: ' . implode(', ', self::ACCEPTED_METHODS) . '.',
             'auth.type.in' => 'The selected auth.type is invalid. Options: ' . implode(', ', self::ACCEPTED_AUTH_TYPES) . '.',
         ])->validate();
     }
     
-    private function validateEnv($env)
+    private function validateEnv($env): void
     {
         /** @var ValidationValidator $validator */
         $validator = Validator::make(['env' => $env], [
@@ -101,12 +103,21 @@ dd('sdsdsds');
         ])->validate();
     }
 
-    private function getUrl(string $env, string $clientId)
+    /**
+     * @throws Exception
+     */
+    public function getUrl(string $env, string $clientId): string
     {
         $source = dirname(__DIR__).'/../config/oms-notification.php';
 
+        $config = require $source;
+
+        if (null === $config[$env]['host'] || false === filter_var($config[$env]['host'], FILTER_VALIDATE_URL)){
+            throw new Exception("Invalid env config for {$env}.");
+        }
+
         $path = str_replace('{clientId}', $clientId, self::ENDPOINT_CREATE);
 
-        return $source[$env]['host'].$path;
+        return $config[$env]['host'].$path;
     }
 }
